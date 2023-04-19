@@ -13,20 +13,24 @@ const ToDoItem = (props) => {
         }}
         style={{
           margin: 5,
+          fontSize: 18,
+          fontWeight: 600,
           textDecorationLine: isDone ? "line-through" : "none",
         }}
       >
         {props.text}
       </Text>
-      <Ionicons
-        onPress={() => {
-          props.onCheck(props.id);
-        }}
-        style={styles.deleteIcon}
-        name="trash"
-        size={16}
-        color="black"
-      />
+      <View style={styles.deleteIconContainer}>
+        <Ionicons
+          onPress={() => {
+            props.onCheck(props.id);
+          }}
+          style={styles.deleteIcon}
+          name="trash"
+          size={16}
+          color="black"
+        />
+      </View>
     </View>
   );
 };
@@ -37,6 +41,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     flexDirection: "row",
     borderRadius: "10px",
+    justifyContent: "center",
+  },
+
+  deleteIconContainer: {
     justifyContent: "center",
   },
 

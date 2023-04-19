@@ -8,9 +8,11 @@ import {
   TouchableOpacity,
   ScrollView,
   FlatList,
+  Button,
   Pressable,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ToDoItem from "./components/ToDoItem";
 
 export default function App() {
@@ -51,7 +53,7 @@ export default function App() {
     <Pressable
       style={{
         backgroundColor: item,
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: "black",
         borderRadius: "100%",
         marginHorizontal: 5,
@@ -68,32 +70,52 @@ export default function App() {
   return (
     <View style={{ flex: 1, backgroundColor: backgroundColor }}>
       <View style={styles.container}>
+        <View style={styles.appHeader}>
+          <View style={styles.appIconContainer}>
+            <MaterialCommunityIcons
+              style={styles.appIcon}
+              name="note-edit"
+              size={28}
+            />
+          </View>
+          <View style={styles.appTextContainer}>
+            <Text style={styles.appText}>Notify</Text>
+          </View>
+        </View>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
             placeholder="Digite o nome para tarefa."
+            selectionColor="black"
             placeholderTextColor={"#888"}
             onChangeText={setInputText}
             value={inputText}
           />
           <TouchableOpacity onPress={addItem} style={styles.touchableOpacity}>
-            <Ionicons name="create" size={28} color="black" />
+            <Ionicons style={styles.appIcon} name="create" size={28} />
           </TouchableOpacity>
         </View>
 
-        <ScrollView>
-          {items.map((item, index) => {
-            return <ToDoItem text={item} id={index} onCheck={deleteItem} />;
-          })}
-        </ScrollView>
+        <View style={styles.listContainer}>
+          <ScrollView>
+            {items.map((item, index) => {
+              return (
+                <ToDoItem
+                  key={index}
+                  text={item}
+                  id={index}
+                  onCheck={deleteItem}
+                />
+              );
+            })}
 
-        <View style={{ position: "absolute", bottom: 50 }}>
-          <FlatList numColumns={4} data={colors} renderItem={renderItem} />
+            <View style={styles.colorsContainer}>
+              <FlatList numColumns={4} data={colors} renderItem={renderItem} />
+            </View>
+
+            <Button color="black" onPress={clearItems} title="Clear" />
+          </ScrollView>
         </View>
-
-        <Pressable style={styles.button} onPress={clearItems}>
-          <Text style={styles.buttonText}>Clear</Text>
-        </Pressable>
       </View>
     </View>
   );
@@ -101,6 +123,35 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, marginTop: 30, marginBottom: 30, alignItems: "center" },
+
+  appHeader: {
+    flexDirection: "row",
+  },
+
+  appIconContainer: { margin: 5, justifyContent: "center" },
+
+  appIcon: {
+    color: "white",
+    textShadowColor: "rgba(0, 0, 0, 0.75)",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 4,
+  },
+
+  appTextContainer: {
+    justifyContent: "center",
+  },
+
+  appText: {
+    margin: 5,
+    padding: 5,
+    fontFamily: "Helvetica",
+    fontWeight: 600,
+    fontSize: 32,
+    color: "white",
+    textShadowColor: "rgba(0, 0, 0, 0.75)",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 4,
+  },
 
   input: {
     paddingVertical: 7,
@@ -126,10 +177,9 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
     borderRadius: 4,
-    elevation: 3,
     backgroundColor: "black",
   },
 
@@ -138,5 +188,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
+  },
+
+  listContainer: {
+    flex: 1,
+  },
+
+  colorsContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 30,
+    marginBottom: 10,
   },
 });
