@@ -6,5 +6,5 @@ O APP é uma To Do List, tem como objetivo salvar suas anotações e podendo per
 
 - Baixar o repositório do github https://github.com/vsdamorim/to-do-app ;
 - Abrir o arquivo App.js ;
-- Colocar no cmd: <cmd> yarn start
+- Colocar no cmd: <pre> yarn start
 - Ler o QR Code para abrir no app Expo Go;
